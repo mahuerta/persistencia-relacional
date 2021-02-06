@@ -1,7 +1,6 @@
 package com.aircrafts.repository;
 
 import com.aircrafts.model.Flight;
-import com.aircrafts.model.Plane;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

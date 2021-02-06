@@ -2,7 +2,6 @@ package com.aircrafts.repository;
 
 import com.aircrafts.model.Crew;
 import com.aircrafts.model.dto.CrewDto;
-import com.aircrafts.model.dto.PlaneDto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

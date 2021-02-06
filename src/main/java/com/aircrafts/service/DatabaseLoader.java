@@ -21,10 +21,8 @@ import com.aircrafts.repository.PlaneRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
