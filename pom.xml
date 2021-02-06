@@ -43,6 +43,12 @@
       <scope>test</scope>
     </dependency>
 
+
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
 

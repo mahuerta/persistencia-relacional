@@ -3,19 +3,17 @@ package com.aircrafts.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Crew {
+@Data
+@NoArgsConstructor
+public class Crew extends Employee {
 
   @Id
   @GeneratedValue
   private Long id;
-
-  private String employeeCode;
-
-  private String firstName;
-
-  private String lastName;
 
   //Tipo Enum con los difetrentesd puestos
   private String charge;

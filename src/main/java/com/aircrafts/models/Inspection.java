@@ -4,9 +4,14 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Revision {
+@Data
+@NoArgsConstructor
+public class Inspection {
 
   @Id
   @GeneratedValue
@@ -26,6 +31,9 @@ public class Revision {
 
   private String worksDone;
 
-  private String airport;
+  @ManyToOne
+  private Plane plane;
 
+  @ManyToOne
+  private Airport airport;
 }

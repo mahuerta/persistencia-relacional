@@ -5,8 +5,14 @@ import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Flight {
 
   @Id
@@ -19,14 +25,19 @@ public class Flight {
 
   private String aircraftCode;
 
-  private String destinyAirport;
-
-  private String departureAirport;
-
   private LocalDateTime departureDate;
 
-  private LocalTime flightDuration;
+  private LocalTime duration;
 
   private Integer crewNumber;
+
+  @ManyToOne
+  private Plane plane;
+
+  @ManyToOne
+  private Airport destination;
+
+  @ManyToOne
+  private Airport origin;
 
 }
