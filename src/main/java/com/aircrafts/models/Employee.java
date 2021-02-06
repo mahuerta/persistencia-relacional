@@ -5,6 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,8 @@ public abstract class Employee {
   private String firstName;
 
   private String lastName;
+
+  @ManyToOne
+  private Company company;
 
 }

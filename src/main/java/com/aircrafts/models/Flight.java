@@ -1,11 +1,14 @@
 package com.aircrafts.models;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,17 +21,14 @@ public class Flight {
   @GeneratedValue
   private Long id;
 
-  private String flightCode;
-
-  private String company;
-
-  private String aircraftCode;
+  private String code;
 
   private LocalDateTime departureDate;
 
-  private LocalTime duration;
+  private Double duration;
 
-  private Integer crewNumber;
+  @ManyToOne
+  private Company company;
 
   @ManyToOne
   private Plane plane;
@@ -38,5 +38,8 @@ public class Flight {
 
   @ManyToOne
   private Airport origin;
+
+  @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<CrewFlight> crews = new ArrayList<>();
 
 }

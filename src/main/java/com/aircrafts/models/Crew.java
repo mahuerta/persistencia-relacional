@@ -1,6 +1,13 @@
 package com.aircrafts.models;
 
+import com.aircrafts.models.enums.Position;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Crew extends Employee {
 
-  //Tipo Enum con los difetrentesd puestos
-  private String charge;
+  @Enumerated(EnumType.STRING)
+  private Position position;
 
-  private String companyName;
+  @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<CrewFlight> flights = new ArrayList<>();
 
 }
