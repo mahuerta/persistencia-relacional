@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Crew extends Employee {
 
-  @Id
-  @GeneratedValue
-  private Long id;
-
   //Tipo Enum con los difetrentesd puestos
   private String charge;
 

@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Mechanic extends Employee {
 
-  @Id
-  @GeneratedValue
-  private Long id;
-
   private String companyName;
 
   private Integer incorporationYear;
