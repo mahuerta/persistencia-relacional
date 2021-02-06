@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +32,13 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class DatabaseLoader implements CommandLineRunner {
 
-  private AirportRepository airportRepository;
-  private FlightRepository flightRepository;
-  private MechanicRepository mechanicRepository;
-  private PlaneRepository planeRepository;
-  private CompanyRepository companyRepository;
-  private InspectionRepository inspectionRepository;
-  private CrewRepository crewRepository;
+  private final AirportRepository airportRepository;
+  private final FlightRepository flightRepository;
+  private final MechanicRepository mechanicRepository;
+  private final PlaneRepository planeRepository;
+  private final CompanyRepository companyRepository;
+  private final InspectionRepository inspectionRepository;
+  private final CrewRepository crewRepository;
 
   public DatabaseLoader(AirportRepository airportRepository,
       FlightRepository flightRepository,
@@ -58,11 +59,21 @@ public class DatabaseLoader implements CommandLineRunner {
     System.out.println("CARGA DE DATOS");
     this.dataInitializer();
 
-    System.out.println("Consulta 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
+    System.out.println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
         + "responsables de sus revisiones.");
     System.out.println(this.planeRepository.findAllWithInspectionMechanics());
 
-    System.out.println("Consulta 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
+    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+    System.out.println("-- CONSULTA 2: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado "
+        + "(destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora");
+    List<Flight> flights = this.flightRepository.findAllFlightsByCityAndArrivalDate("Madrid", format.parse("2020/11/10"));
+    for(Flight f: flights){
+      System.out.println("Flight: " + f.getId() + " Arrival Date: departure date ("
+          + f.getDepartureDate() + ") + duration hours (" + f.getDuration() +")");
+    }
+
+    System.out.println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
         + "número total de vuelos y la suma de horas de estos");
     System.out.println(this.crewRepository.findCrewFlightDetails());
 
@@ -218,18 +229,18 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Flight flight1 = Flight.builder()
         .code("BA24001")
-        .departureDate(new Date())
+        .departureDate(format.parse("2020/11/09 18:12:25"))
         .duration(12.45)
         .company(company1)
         .plane(plane1)
-        .origin(airport1)
-        .destination(airport2)
+        .origin(airport3)
+        .destination(airport1)
         .build();
 
     Flight flight2 = Flight.builder()
         .code("BA24002")
         .departureDate(format.parse("2021/01/10 10:12:25"))
-        .duration(2.15)
+        .duration(3.15)
         .company(company2)
         .plane(plane2)
         .origin(airport3)
@@ -239,7 +250,7 @@ public class DatabaseLoader implements CommandLineRunner {
     Flight flight3 = Flight.builder()
         .code("BA24003")
         .departureDate(format.parse("2020/11/10 20:15:55"))
-        .duration(2.15)
+        .duration(1.15)
         .company(company3)
         .plane(plane3)
         .origin(airport2)
@@ -248,12 +259,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Flight flight4 = Flight.builder()
         .code("BA24004")
-        .departureDate(format.parse("2020/09/1 00:12:01"))
+        .departureDate(format.parse("2020/11/10 00:12:01"))
         .duration(5.97)
         .company(company1)
         .plane(plane1)
-        .origin(airport1)
-        .destination(airport3)
+        .origin(airport3)
+        .destination(airport1)
         .build();
 
     CrewFlight crew1Flight1 = new CrewFlight(crew1, flight1);
