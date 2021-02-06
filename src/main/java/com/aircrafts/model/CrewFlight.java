@@ -1,9 +1,10 @@
-package com.aircrafts.models;
+package com.aircrafts.model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,5 +23,12 @@ public class CrewFlight {
   @ManyToOne
   @MapsId("flightId")
   private Flight flight;
+
+  public CrewFlight(Crew crew, Flight flight) {
+    this.crew = crew;
+    this.flight = flight;
+
+    this.id = new CrewFlightId(crew.getId(), flight.getId());
+  }
 
 }

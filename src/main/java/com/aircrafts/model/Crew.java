@@ -1,6 +1,6 @@
-package com.aircrafts.models;
+package com.aircrafts.model;
 
-import com.aircrafts.models.enums.Position;
+import com.aircrafts.model.enums.Position;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -10,10 +10,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @NoArgsConstructor
+@SuperBuilder
 public class Crew extends Employee {
 
   @Enumerated(EnumType.STRING)

@@ -1,5 +1,6 @@
-package com.aircrafts.models;
+package com.aircrafts.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Flight {
 
   @Id
@@ -23,7 +28,7 @@ public class Flight {
 
   private String code;
 
-  private LocalDateTime departureDate;
+  private LocalDate departureDate;
 
   private Double duration;
 

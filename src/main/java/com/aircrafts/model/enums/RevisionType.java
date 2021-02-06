@@ -1,4 +1,4 @@
-package com.aircrafts.models.enums;
+package com.aircrafts.model.enums;
 
 public enum RevisionType {
   PERIODIC, REPARATION

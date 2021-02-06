@@ -1,8 +1,10 @@
 package com.aircrafts.repository;
 
-import com.aircrafts.models.Mechanic;
+import com.aircrafts.model.Mechanic;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-interface MechanicRepository extends JpaRepository<Mechanic, String> {
+@Repository
+public interface MechanicRepository extends JpaRepository<Mechanic, Long> {
 
 }

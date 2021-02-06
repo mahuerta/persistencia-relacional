@@ -1,8 +1,10 @@
 package com.aircrafts.repository;
 
-import com.aircrafts.models.Airport;
+import com.aircrafts.model.Airport;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-interface AirportRepository extends JpaRepository<Airport, String> {
+@Repository
+public interface AirportRepository extends JpaRepository<Airport, Long> {
 
 }

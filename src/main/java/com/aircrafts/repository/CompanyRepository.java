@@ -1,10 +1,10 @@
 package com.aircrafts.repository;
 
-import com.aircrafts.model.Crew;
+import com.aircrafts.model.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CrewRepository extends JpaRepository<Crew, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 
 }

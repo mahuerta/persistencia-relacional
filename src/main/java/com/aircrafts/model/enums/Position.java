@@ -1,4 +1,4 @@
-package com.aircrafts.models.enums;
+package com.aircrafts.model.enums;
 
 public enum Position {
   COMMANDER, CO_PILOT, FLIGHT_ATTENDANT

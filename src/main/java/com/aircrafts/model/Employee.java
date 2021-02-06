@@ -1,4 +1,4 @@
-package com.aircrafts.models;
+package com.aircrafts.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,11 +9,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 @NoArgsConstructor
+@SuperBuilder
 public abstract class Employee {
 
   @Id
