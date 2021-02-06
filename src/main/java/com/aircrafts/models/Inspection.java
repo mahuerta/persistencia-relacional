@@ -1,7 +1,10 @@
 package com.aircrafts.models;
 
+import com.aircrafts.models.enums.RevisionType;
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -23,17 +26,20 @@ public class Inspection {
 
   private LocalDate finalDate;
 
-  private Integer duration;
+  private Double duration;
 
-  private String mechanic;
+  private String description;
 
-  private String typeOfRevision;
-
-  private String worksDone;
+  @Enumerated(EnumType.STRING)
+  private RevisionType revisionType;
 
   @ManyToOne
   private Plane plane;
 
   @ManyToOne
   private Airport airport;
+
+  @ManyToOne
+  private Mechanic mechanic;
+
 }

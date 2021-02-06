@@ -14,15 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Company {
 
+  String name;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+  List<Crew> crews;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+  List<Mechanic> mechanics;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+  List<Flight> flights;
   @Id
   @GeneratedValue
   private Long id;
-
-  String name;
-
-  @OneToMany(cascade= CascadeType.ALL, mappedBy="company")
-  List<Crew> crews;
-
-  @OneToMany(cascade= CascadeType.ALL, mappedBy="company")
-  List<Mechanic> mechanics;
 }
