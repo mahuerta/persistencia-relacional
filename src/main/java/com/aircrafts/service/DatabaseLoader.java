@@ -60,7 +60,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     System.out.println("Consulta 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
         + "responsables de sus revisiones.");
-    System.out.println(this.planeRepository.findAll());
+    System.out.println(this.planeRepository.findAllWithInspectionMechanics());
 
     System.out.println("Consulta 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
         + "número total de vuelos y la suma de horas de estos");
