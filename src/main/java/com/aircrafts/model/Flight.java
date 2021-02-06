@@ -49,4 +49,5 @@ public class Flight {
   @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CrewFlight> crews = new ArrayList<>();
 
+
 }

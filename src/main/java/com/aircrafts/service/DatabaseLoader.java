@@ -22,12 +22,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 @Service
-@Transactional
 public class DatabaseLoader implements CommandLineRunner {
 
   private final AirportRepository airportRepository;
@@ -57,26 +55,36 @@ public class DatabaseLoader implements CommandLineRunner {
     System.out.println("CARGA DE DATOS");
     this.dataInitializer();
 
+    System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
         + "responsables de sus revisiones.");
-    System.out.println(this.planeRepository.findAllWithInspectionMechanics());
+    List<Plane> planes = this.planeRepository.findAllWithInspectionMechanics();
+    for(Plane p: planes) {
+      System.out.println("Plane: " + p.getId());
+      for(Inspection i: p.getInspections()){
+        Mechanic mechanic = i.getMechanic();
+        System.out.println("Fullname: " + mechanic.getFirstName() + " " + mechanic.getLastName());
+      }
+
+    }
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
+    System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 2: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado "
         + "(destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora");
     List<Flight> flights = this.flightRepository.findAllFlightsByCityAndArrivalDate("Madrid", format.parse("2020/11/10"));
     for(Flight f: flights){
       System.out.println("Flight: " + f.getId() + " Arrival Date: departure date ("
-          + f.getDepartureDate() + ") + duration hours (" + f.getDuration() +")");
+          + f.getDepartureDate() + ") + duration (" + f.getDuration() +" hours)");
     }
 
+    System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
         + "número total de vuelos y la suma de horas de estos");
     System.out.println(this.crewRepository.findCrewFlightDetails());
 
-    System.out.println("Pintamos todos los vuelos con sus mecanicos aqui: ");
-    System.out.println(this.planeRepository.findAllPlaneDTO());
+
 
   }
 

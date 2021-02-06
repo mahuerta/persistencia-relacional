@@ -3,6 +3,7 @@ package com.aircrafts.model;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -30,7 +31,7 @@ public class Plane {
 
   private Double flightHours;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane", fetch = FetchType.EAGER)
   List<Inspection> inspections;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane")
