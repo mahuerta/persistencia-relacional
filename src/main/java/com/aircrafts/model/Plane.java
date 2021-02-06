@@ -35,4 +35,16 @@ public class Plane {
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane")
   List<Flight> flights;
+
+  @Override
+  public String toString() {
+    return "Plane{" +
+        "id=" + id +
+        ", registration='" + registration + '\'' +
+        ", manufacturer='" + manufacturer + '\'' +
+        ", model='" + model + '\'' +
+        ", flightHours=" + flightHours +
+        ", inspections=" + inspections +
+        '}';
+  }
 }

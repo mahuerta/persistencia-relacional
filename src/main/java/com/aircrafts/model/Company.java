@@ -33,4 +33,11 @@ public class Company {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
   List<Flight> flights;
 
+  @Override
+  public String toString() {
+    return "Company{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        '}';
+  }
 }

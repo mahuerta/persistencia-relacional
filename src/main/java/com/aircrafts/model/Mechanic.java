@@ -22,4 +22,11 @@ public class Mechanic extends Employee {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanic")
   List<Inspection> inspections;
 
+  @Override
+  public String toString() {
+    return super.toString()  + "Mechanic {" +
+        "incorporationYear=" + incorporationYear +
+        ", training=" + training +
+        '}';
+  }
 }

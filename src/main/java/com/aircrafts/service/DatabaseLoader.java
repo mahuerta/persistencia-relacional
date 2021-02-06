@@ -18,42 +18,57 @@ import com.aircrafts.repository.FlightRepository;
 import com.aircrafts.repository.InspectionRepository;
 import com.aircrafts.repository.MechanicRepository;
 import com.aircrafts.repository.PlaneRepository;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class DatabaseLoader implements CommandLineRunner {
 
   private AirportRepository airportRepository;
-  private CrewRepository crewRepository;
   private FlightRepository flightRepository;
   private MechanicRepository mechanicRepository;
   private PlaneRepository planeRepository;
   private CompanyRepository companyRepository;
   private InspectionRepository inspectionRepository;
+  private CrewRepository crewRepository;
 
   public DatabaseLoader(AirportRepository airportRepository,
-      CrewRepository crewRepository, FlightRepository flightRepository,
+      FlightRepository flightRepository,
   MechanicRepository mechanicRepository, PlaneRepository planeRepository,
-      CompanyRepository companyRepository, InspectionRepository inspectionRepository) {
+      CompanyRepository companyRepository, InspectionRepository inspectionRepository,
+      CrewRepository crewRepository) {
     this.airportRepository = airportRepository;
-    this.crewRepository = crewRepository;
     this.flightRepository = flightRepository;
     this.mechanicRepository = mechanicRepository;
     this.planeRepository = planeRepository;
     this.companyRepository = companyRepository;
     this.inspectionRepository = inspectionRepository;
+    this.crewRepository = crewRepository;
   }
 
   @Override
-  public void run(String... args) {
+  public void run(String... args) throws ParseException {
+    System.out.println("CARGA DE DATOS");
     this.dataInitializer();
+
+    System.out.println("Consulta 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
+        + "responsables de sus revisiones.");
+    System.out.println(this.planeRepository.findAll());
+
+    System.out.println("Consulta 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
+        + "número total de vuelos y la suma de horas de estos");
+    System.out.println(this.crewRepository.findCrewFlightDetails());
 
   }
 
-  private void dataInitializer() {
+  private void dataInitializer() throws ParseException {
 
     Airport airport1 = Airport.builder()
         .codeIATA("IA1")
@@ -199,9 +214,11 @@ public class DatabaseLoader implements CommandLineRunner {
     companyRepository.saveAll(Arrays.asList(company1, company2, company3));
     mechanicRepository.saveAll(Arrays.asList(mechanic1, mechanic2, mechanic3, mechanic4, mechanic5));
 
+    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
     Flight flight1 = Flight.builder()
         .code("BA24001")
-        .departureDate(LocalDate.now().minusDays(365))
+        .departureDate(new Date())
         .duration(12.45)
         .company(company1)
         .plane(plane1)
@@ -211,7 +228,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Flight flight2 = Flight.builder()
         .code("BA24002")
-        .departureDate(LocalDate.now().minusDays(10))
+        .departureDate(format.parse("2021/01/10 10:12:25"))
         .duration(2.15)
         .company(company2)
         .plane(plane2)
@@ -221,7 +238,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Flight flight3 = Flight.builder()
         .code("BA24003")
-        .departureDate(LocalDate.now().minusDays(50))
+        .departureDate(format.parse("2020/11/10 20:15:55"))
         .duration(2.15)
         .company(company3)
         .plane(plane3)
@@ -231,7 +248,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Flight flight4 = Flight.builder()
         .code("BA24004")
-        .departureDate(LocalDate.now().minusDays(150))
+        .departureDate(format.parse("2020/09/1 00:12:01"))
         .duration(5.97)
         .company(company1)
         .plane(plane1)
@@ -244,28 +261,29 @@ public class DatabaseLoader implements CommandLineRunner {
     CrewFlight crew5Flight1 = new CrewFlight(crew5, flight1);
     CrewFlight crew2Flight2 = new CrewFlight(crew2, flight2);
     CrewFlight crew3Flight3 = new CrewFlight(crew3, flight3);
+    CrewFlight crew1Flight3 = new CrewFlight(crew1, flight3);
 
     flight1.setCrews(Arrays.asList(crew1Flight1, crew4Flight1, crew5Flight1));
     flight2.setCrews(Arrays.asList(crew2Flight2));
-    flight3.setCrews(Arrays.asList(crew3Flight3));
+    flight3.setCrews(Arrays.asList(crew3Flight3, crew1Flight3));
 
     flightRepository.saveAll(Arrays.asList(flight1, flight2, flight3, flight4));
 
     Inspection inspection1 = Inspection.builder()
         .plane(plane1)
-        .initialDate(LocalDate.now().minusDays(160))
-        .finalDate(LocalDate.now().minusDays(150))
+        .initialDate(format.parse("2021/01/01 08:00:00"))
+        .finalDate(format.parse("2021/01/10 10:00:00"))
         .duration(150.20)
         .mechanic(mechanic1)
         .revisionType(RevisionType.PERIODIC)
-        .description("Cambio de las ruedas")
+        .description("Cambio de las ruedas delanteras")
         .airport(airport1)
         .build();
 
     Inspection inspection2 = Inspection.builder()
         .plane(plane2)
-        .initialDate(LocalDate.now().minusDays(240))
-        .finalDate(LocalDate.now().minusDays(230))
+        .initialDate(format.parse("2021/01/01 08:00:00"))
+        .finalDate(format.parse("2021/03/10 10:00:00"))
         .duration(20.15)
         .mechanic(mechanic2)
         .revisionType(RevisionType.REPARATION)
@@ -275,8 +293,8 @@ public class DatabaseLoader implements CommandLineRunner {
 
     Inspection inspection3 = Inspection.builder()
         .plane(plane3)
-        .initialDate(LocalDate.now().minusDays(240))
-        .finalDate(LocalDate.now().minusDays(230))
+        .initialDate(format.parse("2021/01/01 08:00:00"))
+        .finalDate(format.parse("2021/01/10 17:00:00"))
         .duration(5.37)
         .mechanic(mechanic3)
         .revisionType(RevisionType.PERIODIC)
@@ -284,8 +302,30 @@ public class DatabaseLoader implements CommandLineRunner {
         .airport(airport3)
         .build();
 
+    Inspection inspection4 = Inspection.builder()
+        .plane(plane1)
+        .initialDate(format.parse("2020/11/01 08:00:00"))
+        .finalDate(format.parse("2021/01/10 10:00:00"))
+        .duration(134.23)
+        .mechanic(mechanic1)
+        .revisionType(RevisionType.PERIODIC)
+        .description("Cambio de las ruedas traseras")
+        .airport(airport1)
+        .build();
+
+    Inspection inspection5 = Inspection.builder()
+        .plane(plane1)
+        .initialDate(format.parse("2020/10/01 08:00:00"))
+        .finalDate(format.parse("2020/10/10 15:00:00"))
+        .duration(5.5)
+        .mechanic(mechanic2)
+        .revisionType(RevisionType.PERIODIC)
+        .description("Cambio de las persianas de las ventanillas")
+        .airport(airport2)
+        .build();
+
     inspectionRepository.saveAll(Arrays.asList(inspection1, inspection2,
-        inspection3));
+        inspection3, inspection4, inspection5));
   }
 
 }

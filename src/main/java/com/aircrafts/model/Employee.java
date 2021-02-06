@@ -31,4 +31,14 @@ public abstract class Employee {
   @ManyToOne
   private Company company;
 
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "id=" + id +
+        ", code='" + code + '\'' +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", company=" + company +
+        '}';
+  }
 }

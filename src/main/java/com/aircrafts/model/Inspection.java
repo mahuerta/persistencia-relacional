@@ -1,13 +1,15 @@
 package com.aircrafts.model;
 
 import com.aircrafts.model.enums.RevisionType;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,9 +26,11 @@ public class Inspection {
   @GeneratedValue
   private Long id;
 
-  private LocalDate initialDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date initialDate;
 
-  private LocalDate finalDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date finalDate;
 
   private Double duration;
 
@@ -44,4 +48,16 @@ public class Inspection {
   @ManyToOne
   private Mechanic mechanic;
 
+  @Override
+  public String toString() {
+    return "Inspection{" +
+        "id=" + id +
+        ", initialDate=" + initialDate +
+        ", finalDate=" + finalDate +
+        ", duration=" + duration +
+        ", description='" + description + '\'' +
+        ", revisionType=" + revisionType +
+        ", mechanic=" + mechanic +
+        '}';
+  }
 }
