@@ -66,6 +66,9 @@ public class DatabaseLoader implements CommandLineRunner {
         + "número total de vuelos y la suma de horas de estos");
     System.out.println(this.crewRepository.findCrewFlightDetails());
 
+    System.out.println("Pintamos todos los vuelos con sus mecanicos aqui: ");
+    System.out.println(this.planeRepository.findAllPlaneDTO());
+
   }
 
   private void dataInitializer() throws ParseException {
@@ -74,14 +77,14 @@ public class DatabaseLoader implements CommandLineRunner {
         .codeIATA("IA1")
         .name("Barajas")
         .city("Madrid")
-        .country("España")
+        .country("Espana")
         .build();
 
     Airport airport2 = Airport.builder()
         .codeIATA("IA2")
         .name("Villanubla")
         .city("Valladolid")
-        .country("España")
+        .country("Espana")
         .build();
 
     Airport airport3 = Airport.builder()
