@@ -21,6 +21,7 @@ import com.aircrafts.repository.PlaneRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,8 @@ public class DatabaseLoader implements CommandLineRunner {
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
         + "responsables de sus revisiones.");
+    System.out.println("----------------------------------------");
+
     List<Plane> planes = this.planeRepository.findAllWithInspectionMechanics();
     for(Plane p: planes) {
       System.out.println("Plane: " + p.getId());
@@ -76,6 +79,8 @@ public class DatabaseLoader implements CommandLineRunner {
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 2: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado "
         + "(destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora");
+    System.out.println("----------------------------------------");
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
     List<Flight> flights = this.flightRepository.findAllFlightsByCityAndArrivalDate("Madrid", format.parse("2020/11/10"));
     for(Flight f: flights){
@@ -86,12 +91,16 @@ public class DatabaseLoader implements CommandLineRunner {
     System.out.println("-- CONSULTA 3: Dado el código de empleado de un tripulante, "
         + "mostrar su nombre y apellidos y las ciudades desde las que ha despegado "
         + "junto con la fecha en que despegó. ");
-    System.out.println(this.crewRepository.findCrewAndFlightDetailsByCode("COD001"));
+    System.out.println("----------------------------------------");
+
+    this.crewRepository.findCrewAndFlightDetailsUsingCode("COD001").forEach(System.out::println);
 
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
         + "número total de vuelos y la suma de horas de estos");
-    System.out.println(this.crewRepository.findCrewFlightDetails());
+    System.out.println("----------------------------------------");
+
+    this.crewRepository.findCrewFlightDetails().forEach(System.out::println);
 
   }
 
@@ -283,18 +292,30 @@ public class DatabaseLoader implements CommandLineRunner {
         .destination(airport1)
         .build();
 
+    Flight flight5 = Flight.builder()
+        .code("BA24005")
+        .departureDate(format.parse("2020/11/10 23:00:00"))
+        .duration(5.97)
+        .company(company1)
+        .plane(plane1)
+        .origin(airport3)
+        .destination(airport1)
+        .build();
+
     CrewFlight crew1Flight1 = new CrewFlight(crew1, flight1);
     CrewFlight crew4Flight1 = new CrewFlight(crew4, flight1);
     CrewFlight crew5Flight1 = new CrewFlight(crew5, flight1);
     CrewFlight crew2Flight2 = new CrewFlight(crew2, flight2);
     CrewFlight crew3Flight3 = new CrewFlight(crew3, flight3);
     CrewFlight crew1Flight3 = new CrewFlight(crew1, flight3);
+    CrewFlight crew2Flight5 = new CrewFlight(crew2, flight5);
 
     flight1.setCrews(Arrays.asList(crew1Flight1, crew4Flight1, crew5Flight1));
-    flight2.setCrews(Arrays.asList(crew2Flight2));
+    flight2.setCrews(Collections.singletonList(crew2Flight2));
     flight3.setCrews(Arrays.asList(crew3Flight3, crew1Flight3));
+    flight5.setCrews(Collections.singletonList(crew2Flight5));
 
-    flightRepository.saveAll(Arrays.asList(flight1, flight2, flight3, flight4));
+    flightRepository.saveAll(Arrays.asList(flight1, flight2, flight3, flight4, flight5));
 
     Inspection inspection1 = Inspection.builder()
         .plane(plane1)

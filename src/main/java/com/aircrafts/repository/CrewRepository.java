@@ -21,12 +21,12 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
   List<CrewDto> findCrewFlightDetails();
 
   @Query("SELECT new com.aircrafts.model.dto.CrewCodeDto"
-      + "(C.firstName, C.lastName, a.city, f.departureDate) "
-      + "FROM Crew C "
-      + "JOIN CrewFlight cf on C = cf.crew "
+      + "(c.firstName, c.lastName, a.city, f.departureDate) "
+      + "FROM Crew c "
+      + "JOIN CrewFlight cf on c = cf.crew "
       + "JOIN Flight f on f = cf.flight "
       + "JOIN Airport a on f.destination = a "
-      + "WHERE C.code = :code")
-  List<CrewCodeDto> findCrewAndFlightDetailsByCode(@Param("code") String code);
+      + "WHERE c.code = :code")
+  List<CrewCodeDto> findCrewAndFlightDetailsUsingCode(@Param("code") String code);
 
 }
