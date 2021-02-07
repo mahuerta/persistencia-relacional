@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-  // Usada Query nativa porque JPQL no soporta operaciones sobre periodos puesto que no todas las BBDD lo soportan.
-  // https://stackoverflow.com/questions/2856386/java-jpql-date-function-to-add-a-time-period-to-another-date
   @Query(value = "SELECT f.* FROM flight f "
       + "INNER JOIN airport a on f.destination_id = a.id AND a.city = :city "
       + "AND DATE_ADD(f.departure_date, INTERVAL duration HOUR) >= :arrivalDate "
