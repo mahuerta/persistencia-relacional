@@ -101,14 +101,14 @@ public class DatabaseLoader implements CommandLineRunner {
         .codeIATA("IA1")
         .name("Barajas")
         .city("Madrid")
-        .country("Espana")
+        .country("España")
         .build();
 
     Airport airport2 = Airport.builder()
         .codeIATA("IA2")
         .name("Villanubla")
         .city("Valladolid")
-        .country("Espana")
+        .country("España")
         .build();
 
     Airport airport3 = Airport.builder()
