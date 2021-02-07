@@ -82,6 +82,11 @@ public class DatabaseLoader implements CommandLineRunner {
       System.out.println("Flight: " + f.getId() + " Arrival Date: departure date ("
           + f.getDepartureDate() + ") + duration (" + f.getDuration() +" hours)");
     }
+    System.out.println("----------------------------------------");
+    System.out.println("-- CONSULTA 3: Dado el código de empleado de un tripulante, "
+        + "mostrar su nombre y apellidos y las ciudades desde las que ha despegado "
+        + "junto con la fecha en que despegó. ");
+    System.out.println(this.crewRepository.findCrewAndFlightDetailsByCode("COD001"));
 
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
