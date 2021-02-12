@@ -23,6 +23,9 @@ public class DataLogger implements CommandLineRunner {
   private void queryExecutor() {
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 1: Listado de los datos de todas las provincias.");
+    Provincia provinciaPrueba = Provincia.builder().nombre("PRUEBA JC").build();
+    provinciaRepository.save(provinciaPrueba);
+
     System.out.println("-------------------------------");
 
     for (Provincia provincia : provinciaRepository.findAll()) {

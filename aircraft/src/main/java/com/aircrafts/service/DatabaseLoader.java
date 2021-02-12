@@ -56,8 +56,8 @@ public class DatabaseLoader implements CommandLineRunner {
     // System.out.println("CARGA DE DATOS");
     // this.dataInitializer();
 
-    System.out.println("EJECUCIÓN DE CONSULTAS");
-    this.queryExecutor();
+    // System.out.println("EJECUCIÓN DE CONSULTAS");
+    // this.queryExecutor();
   }
 
   private void queryExecutor() throws ParseException {

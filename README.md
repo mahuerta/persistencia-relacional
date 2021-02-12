@@ -24,6 +24,17 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 > docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -e -d mysql/mysql-server
 > docker run -d -p 27017:27017 --name mongo-db mongo:latest
 
+Cargar los datos en el docker:
+https://stackoverflow.com/questions/49895447/i-want-to-execute-mongoimport-on-a-docker-container
+
+> mongoimport --db mongo-db --collection provincia --file C:\EclipseProjects\persistencia-relacional\Provincias.json --jsonArray
+> docker exec -i mongo-db sh -c 'mongoimport -c provincia -d test --drop' < xxx.json
+
+#>docker exec -it <container-name> mongo
+#>docker cp xxx.json <container-name-or-id>:/tmp/xxx.json
+#>docker exec <container-name-or-id> mongoimport -d <db-name> -c <c-name> --file /tmp/xxx.json
+
+
 **2.** Ejecutamos el proyecto en nuestro IDE.
 
 **3.** Podemos ir comprobando en la consola las diferentes consultas que se ejecutan y la información solicitada para cada consulta.
