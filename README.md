@@ -19,28 +19,10 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 * Github: [@mahuerta](https://github.com/mahuerta)
 
 
-# Sobre la entrega:
-## Apartado 1: Estructura
-### Decisión de Herencia:
-Estrategia Concrete table inheritance con Mapped Superclass:
-Hemos dedicido esta implementación porque:
-* No necesitamos realizar consultas polimórficas.
-* Esta variante mejora la eficiencia:
-  * Escrituras en una sola tabla.
-  * Lecturas sin joins.
-
-### Decisión de Compañía y Empresa:
-Hemos planteado una solución tratando ambos conceptos como lo mismo ya que no se realizan consultas
-sobre el grueso de empleados de una Compañía, siempre se realizan consultas sobre miembros de la tripulación o sobre mecánicos.
-
-## Apartado 2: Consultas
-* En la consulta 2, hemos utilizado una Query nativa porque JPQL Standar no soporta estas operaciones sobre periodos.
-  * https://stackoverflow.com/questions/2856386/java-jpql-date-function-to-add-a-time-period-to-another-date
-
-
 # Ejecución de la aplicación:
-**1.** Primero debemos ejecutar el comando docker para disponer de la BBDD. Hemos preparado un script para poder ejecutarlo de forma más comoda:
+**1.** Primero debemos ejecutar los comandos docker para disponer de las BBDD:
 > docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -e -d mysql/mysql-server
+> docker run -d -p 27017:27017 --name mongo-db mongo:latest
 
 **2.** Ejecutamos el proyecto en nuestro IDE.
 
