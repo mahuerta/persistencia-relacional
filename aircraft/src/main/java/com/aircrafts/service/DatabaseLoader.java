@@ -53,12 +53,11 @@ public class DatabaseLoader implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws ParseException {
-    System.out.println("CARGA DE DATOS");
-    this.dataInitializer();
+    // System.out.println("CARGA DE DATOS");
+    // this.dataInitializer();
 
+    System.out.println("EJECUCIÓN DE CONSULTAS");
     this.queryExecutor();
-
-
   }
 
   private void queryExecutor() throws ParseException {
