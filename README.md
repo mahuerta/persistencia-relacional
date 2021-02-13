@@ -22,6 +22,7 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 # Ejecución de la aplicación:
 **1.** Primero debemos ejecutar los comandos docker para disponer de las BBDD:
 > docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -e -d mysql/mysql-server
+
 > docker run -d -p 27017:27017 --name mongo-db mongo:latest
 
 Cargar los datos en el docker:
