@@ -1,7 +1,6 @@
 package com.aircrafts.model;
 
 import java.util.List;
-import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

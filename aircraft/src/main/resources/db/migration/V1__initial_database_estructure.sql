@@ -148,4 +148,12 @@ INSERT INTO test.inspection (id, description, duration, final_date, initial_date
 INSERT INTO test.inspection (id, description, duration, final_date, initial_date, revision_type, airport_id, mechanic_id, plane_id) VALUES (28, 'Cambio de las ruedas traseras', 134.23, '2021-01-10 09:00:00', '2020-11-01 07:00:00', 'PERIODIC', 1, 10, 4);
 INSERT INTO test.inspection (id, description, duration, final_date, initial_date, revision_type, airport_id, mechanic_id, plane_id) VALUES (29, 'Cambio de las persianas de las ventanillas', 5.5, '2020-10-10 13:00:00', '2020-10-01 06:00:00', 'PERIODIC', 2, 11, 4);
 
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (16, 15);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (17, 15);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (18, 15);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (20, 19);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (16, 21);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (22, 21);
+INSERT INTO test.crew_flight (crew_id, flight_id) VALUES (20, 24);
+
 INSERT INTO test.hibernate_sequence (next_val) VALUES (30);

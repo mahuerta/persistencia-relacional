@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MechanicDto {
+public class PlaneMechanicDto {
+  Long id;
   String firstName;
   String lastName;
 }

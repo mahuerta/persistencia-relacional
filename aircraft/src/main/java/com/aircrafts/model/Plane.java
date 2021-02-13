@@ -38,7 +38,7 @@ public class Plane {
   List<Flight> flights;
 
   // Objeto JSON
-  // private String inspections;
+  private String inspectionsJson;
 
   @Override
   public String toString() {

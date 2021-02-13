@@ -3,6 +3,7 @@ package com.aircrafts.repository;
 import com.aircrafts.model.Crew;
 import com.aircrafts.model.dto.CrewCodeDto;
 import com.aircrafts.model.dto.CrewDto;
+import com.aircrafts.model.dto.CrewInterface;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +29,10 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
       + "JOIN Airport a on f.destination = a "
       + "WHERE c.code = :code")
   List<CrewCodeDto> findCrewAndFlightDetailsUsingCode(@Param("code") String code);
+
+  @Query(value = "SELECT c.first_name as firstName, c.last_name as lastName, COUNT(f.id) as flightsNumber, SUM(f.duration) "
+      + "as sumFlightDuration FROM crew c JOIN flight f ON JSON_CONTAINS(f.crew_ids, CAST(c.id AS JSON), '$') "
+      + "GROUP BY c.first_name, c.last_name ORDER BY c.first_name", nativeQuery = true)
+  List<CrewInterface> findCrewFlightDetailsJSON();
 
 }
