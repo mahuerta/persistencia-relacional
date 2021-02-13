@@ -36,6 +36,7 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 
 
 ## Apuntes teóricos
+<<<<<<< HEAD
 ### Consulta agregación:
 La consulta que planteamos para luego sacar los datos con Spring Data fue la siguiente:
 ```
@@ -53,3 +54,21 @@ db.provincia.aggregate([
   }
 ])
 ```
+=======
+### Operaciones transaccionales:
+- ***save*** y ***saveAll*** ya son operaciones transaccionales
+- En grandes guardados de datos, conviene repartir el trabajo en varias hebras
+
+
+- ***saveAll*** realiza una sola transacción, las lecturas concurrentes no ven nada. 
+- Sin embargo, si realizamos un ***save*** *oneByOne*, vemos en accesos concurrentes los datos que se han introducido.
+- En procesos muy largos de guardado, como hemos dicho conviene dividir las operaciones en hebras.
+- El número de hebras, se puede pedir a java, y le damos el nº de hebras -1 para dejar 1 libre. Se puede obtener con el comando: 
+> Runtime.getRuntime().availableProcessors();
+- Para mejorar las lecturas utilizaremos índices.
+- Para mejorar las escrituras utilizaremos diferentes hebras.
+
+### Escalabilidad horizontal vs vertical
+- Escalabilidad horizontal: Réplicas, más máquinas del mismo o similar tamaño.
+- Escalabilidad vertical: Más capacidad de la máquina única.
+>>>>>>> origin/persistencia-relacional-2
