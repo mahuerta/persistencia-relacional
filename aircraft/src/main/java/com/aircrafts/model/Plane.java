@@ -37,6 +37,9 @@ public class Plane {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane")
   List<Flight> flights;
 
+  // Objeto JSON
+  // private String inspections;
+
   @Override
   public String toString() {
     return "Plane{" +

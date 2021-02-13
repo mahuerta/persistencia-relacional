@@ -12,7 +12,7 @@ public interface ProvinciaRepository extends MongoRepository<Provincia, String> 
             "  {$group:"
           + "        {"
           + "          _id: '$CA',"
-          + "          provincias: {$push: '$Nombre'}"
+          + "          provincias:{$sum:1}"
           + "        }"
           + "  },"
       ,

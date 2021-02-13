@@ -17,5 +17,5 @@ public class ComunidadDto {
   private String nombre;
 
   @Field("provincias")
-  private List<String> provincias;
+  private Long provincias;
 }
