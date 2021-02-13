@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @NoArgsConstructor
@@ -11,7 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Dato {
 
+  @Field("Anyo")
   private String anyo;
+
+  @Field("Valor")
   private String valor;
 
   @Override
