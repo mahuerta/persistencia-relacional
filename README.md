@@ -1,4 +1,4 @@
-<h1 align="center">Practica 1. Módulo Persistencia y Análisis de Datos 👨🏻‍💻 </h1>
+<h1 align="center">Practica 2. Módulo Persistencia y Análisis de Datos 👨🏻‍💻 </h1>
 
 <p align="center">
   <a href="/docs" target="_blank">
@@ -9,7 +9,8 @@
   </a>
 </p>
 
-Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas poniendo atención al rendimiento.
+Proyecto para realizar operaciones utilizando flyway y campos JSON en la BBDD.
+Además, apartado para utilizar mongo y realizar consultas agregadas.
 
 ## Authors
 👤 **JuanCBM**: Juan Carlos Blázquez Muñoz
@@ -17,7 +18,6 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 
 👤 **mahuerta**: Miguel Ángel Huerta Rodríguez
 * Github: [@mahuerta](https://github.com/mahuerta)
-
 
 # Ejecución de la aplicación:
 **1.** Primero debemos ejecutar los comandos docker para disponer de las BBDD:
@@ -36,7 +36,19 @@ Proyecto para realizar modelos de BBDD con JPA y realizar consultas avanzadas po
 
 
 ## Apuntes teóricos
-<<<<<<< HEAD
+Apartado 2 de la práctica:
+1. Revisiones de cada avión con JSON
+    - No es necesario extraer ahí toda la info de mecánico encargado. Sería solamente su ID.
+
+2. Cada vuelo un JSON con los ids de los tripulantes, sólo los IDs.
+
+**¿Cómo hacerlo?**
+- Incluir esos campos en las entidades
+- Hacer los scripts, alter table que añadan esos campos
+- Las instrucciones SQL para migrar datos de la version sql a json
+    - Con estas operaciones: JSON_OBJECT, JSON_ARRAYAGG y JSON_TABLE
+- Consultas sobre el campo nuevo.
+
 ### Consulta agregación:
 La consulta que planteamos para luego sacar los datos con Spring Data fue la siguiente:
 ```
@@ -54,21 +66,4 @@ db.provincia.aggregate([
   }
 ])
 ```
-=======
-### Operaciones transaccionales:
-- ***save*** y ***saveAll*** ya son operaciones transaccionales
-- En grandes guardados de datos, conviene repartir el trabajo en varias hebras
 
-
-- ***saveAll*** realiza una sola transacción, las lecturas concurrentes no ven nada. 
-- Sin embargo, si realizamos un ***save*** *oneByOne*, vemos en accesos concurrentes los datos que se han introducido.
-- En procesos muy largos de guardado, como hemos dicho conviene dividir las operaciones en hebras.
-- El número de hebras, se puede pedir a java, y le damos el nº de hebras -1 para dejar 1 libre. Se puede obtener con el comando: 
-> Runtime.getRuntime().availableProcessors();
-- Para mejorar las lecturas utilizaremos índices.
-- Para mejorar las escrituras utilizaremos diferentes hebras.
-
-### Escalabilidad horizontal vs vertical
-- Escalabilidad horizontal: Réplicas, más máquinas del mismo o similar tamaño.
-- Escalabilidad vertical: Más capacidad de la máquina única.
->>>>>>> origin/persistencia-relacional-2
