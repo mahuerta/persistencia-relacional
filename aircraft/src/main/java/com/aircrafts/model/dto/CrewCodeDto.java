@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrewCodeDto {
+
   String firstName;
   String lastName;
   String country;

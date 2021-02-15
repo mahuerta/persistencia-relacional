@@ -18,7 +18,7 @@ public class DataLogger implements CommandLineRunner {
   private final PlaneRepository planeRepository;
   private final CrewRepository crewRepository;
 
-  public DataLogger (ProvinciaRepository provinciaRepository, PlaneRepository planeRepository,
+  public DataLogger(ProvinciaRepository provinciaRepository, PlaneRepository planeRepository,
       CrewRepository crewRepository) {
     this.provinciaRepository = provinciaRepository;
     this.planeRepository = planeRepository;
@@ -36,22 +36,27 @@ public class DataLogger implements CommandLineRunner {
     System.out.println("APARTADO 2 JSON");
 
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos responsables de "
-        + "sus revisiones.");
+    System.out.println(
+        "-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos responsables de "
+            + "sus revisiones.");
     System.out.println("-------------------------------");
 
-    for (PlaneMechanicDto planeMechanicDto: this.planeRepository.findAllWithInspectionMechanicsJSON().stream().map(pmi -> new PlaneMechanicDto(pmi.getId(), pmi.getFirstName(),
-        pmi.getLastName())).collect(Collectors.toList())) {
+    for (PlaneMechanicDto planeMechanicDto : this.planeRepository
+        .findAllWithInspectionMechanicsJSON().stream()
+        .map(pmi -> new PlaneMechanicDto(pmi.getId(), pmi.getFirstName(),
+            pmi.getLastName())).collect(Collectors.toList())) {
       System.out.println(planeMechanicDto);
     }
 
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 2: Para cada tripulante, mostrar su nombre y apellidos junto con su número total de "
-        + "vuelos y la suma de horas de estos.");
+    System.out.println(
+        "-- CONSULTA 2: Para cada tripulante, mostrar su nombre y apellidos junto con su número total de "
+            + "vuelos y la suma de horas de estos.");
     System.out.println("-------------------------------");
-    for (CrewDto crewDto: this.crewRepository.findCrewFlightDetailsJSON().stream().map
+    for (CrewDto crewDto : this.crewRepository.findCrewFlightDetailsJSON().stream().map
         (c -> new CrewDto(c.getFirstName(),
-        c.getLastName(), c.getFlightsNumber(), c.getSumFlightDuration())).collect(Collectors.toList())) {
+            c.getLastName(), c.getFlightsNumber(), c.getSumFlightDuration()))
+        .collect(Collectors.toList())) {
       System.out.println(crewDto);
     }
     System.out.println();
@@ -70,9 +75,10 @@ public class DataLogger implements CommandLineRunner {
     System.out.println();
 
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 2: Listado mostrando, para cada comunidad autónoma, su número de provincias "
-        + "(Ceuta y Melilla se consideran como parte de la comunidad autónoma “sin "
-        + "comunidad”).");
+    System.out.println(
+        "-- CONSULTA 2: Listado mostrando, para cada comunidad autónoma, su número de provincias "
+            + "(Ceuta y Melilla se consideran como parte de la comunidad autónoma “sin "
+            + "comunidad”).");
     System.out.println("-------------------------------");
 
     for (ComunidadDto comunidadDto : provinciaRepository.groupByComunidad()) {

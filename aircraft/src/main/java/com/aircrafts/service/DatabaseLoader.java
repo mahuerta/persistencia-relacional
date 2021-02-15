@@ -39,7 +39,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
   public DatabaseLoader(AirportRepository airportRepository,
       FlightRepository flightRepository,
-  MechanicRepository mechanicRepository, PlaneRepository planeRepository,
+      MechanicRepository mechanicRepository, PlaneRepository planeRepository,
       CompanyRepository companyRepository, InspectionRepository inspectionRepository,
       CrewRepository crewRepository) {
     this.airportRepository = airportRepository;
@@ -62,29 +62,32 @@ public class DatabaseLoader implements CommandLineRunner {
 
   private void queryExecutor() throws ParseException {
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
-        + "responsables de sus revisiones.");
+    System.out
+        .println("-- CONSULTA 1: Para cada avión, mostrar el nombre y apellidos de los mecánicos "
+            + "responsables de sus revisiones.");
     System.out.println("----------------------------------------");
 
     List<Plane> planes = this.planeRepository.findAllWithInspectionMechanics();
-    for(Plane p: planes) {
+    for (Plane p : planes) {
       System.out.println("Plane: " + p.getId());
-      for(Inspection i: p.getInspections()){
+      for (Inspection i : p.getInspections()) {
         Mechanic mechanic = i.getMechanic();
         System.out.println("Fullname: " + mechanic.getFirstName() + " " + mechanic.getLastName());
       }
     }
 
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 2: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado "
-        + "(destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora");
+    System.out.println(
+        "-- CONSULTA 2: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado "
+            + "(destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora");
     System.out.println("----------------------------------------");
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-    List<Flight> flights = this.flightRepository.findAllFlightsByCityAndArrivalDate("Madrid", format.parse("2020/11/10"));
-    for(Flight f: flights){
+    List<Flight> flights = this.flightRepository
+        .findAllFlightsByCityAndArrivalDate("Madrid", format.parse("2020/11/10"));
+    for (Flight f : flights) {
       System.out.println("Flight: " + f.getId() + " Arrival Date: departure date ("
-          + f.getDepartureDate() + ") + duration (" + f.getDuration() +" hours)");
+          + f.getDepartureDate() + ") + duration (" + f.getDuration() + " hours)");
     }
     System.out.println("----------------------------------------");
     System.out.println("-- CONSULTA 3: Dado el código de empleado de un tripulante, "
@@ -95,8 +98,9 @@ public class DatabaseLoader implements CommandLineRunner {
     this.crewRepository.findCrewAndFlightDetailsUsingCode("COD001").forEach(System.out::println);
 
     System.out.println("----------------------------------------");
-    System.out.println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
-        + "número total de vuelos y la suma de horas de estos");
+    System.out
+        .println("-- CONSULTA 4: Para cada tripulante, mostrar su nombre y apellidos junto con su "
+            + "número total de vuelos y la suma de horas de estos");
     System.out.println("----------------------------------------");
 
     this.crewRepository.findCrewFlightDetails().forEach(System.out::println);
@@ -247,7 +251,8 @@ public class DatabaseLoader implements CommandLineRunner {
     airportRepository.saveAll(Arrays.asList(airport1, airport2, airport3));
     planeRepository.saveAll(Arrays.asList(plane1, plane2, plane3));
     companyRepository.saveAll(Arrays.asList(company1, company2, company3));
-    mechanicRepository.saveAll(Arrays.asList(mechanic1, mechanic2, mechanic3, mechanic4, mechanic5));
+    mechanicRepository
+        .saveAll(Arrays.asList(mechanic1, mechanic2, mechanic3, mechanic4, mechanic5));
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 

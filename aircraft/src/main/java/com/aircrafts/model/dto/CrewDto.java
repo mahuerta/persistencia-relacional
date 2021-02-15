@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrewDto {
+
   String firstName;
   String lastName;
   Long flightsNumber;

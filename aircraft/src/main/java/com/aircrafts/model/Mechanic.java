@@ -24,7 +24,7 @@ public class Mechanic extends Employee {
 
   @Override
   public String toString() {
-    return super.toString()  + "Mechanic {" +
+    return super.toString() + "Mechanic {" +
         "incorporationYear=" + incorporationYear +
         ", training=" + training +
         '}';

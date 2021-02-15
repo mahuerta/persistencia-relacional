@@ -9,18 +9,18 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface ProvinciaRepository extends MongoRepository<Provincia, String> {
 
   @Aggregation(pipeline = {
-            "  {$group:"
+      "  {$group:"
           + "        {"
           + "          _id: '$CA',"
           + "          provincias:{$sum:1}"
           + "        }"
           + "  },"
       ,
-            "  { $project: {"
+      "  { $project: {"
           + "      _id: {$ifNull: ['$_id', 'Sin comunidad']},"
           + "      provincias: 1"
           + "    }"
           + "  }"
-      })
+  })
   List<ComunidadDto> groupByComunidad();
 }
