@@ -16,3 +16,7 @@ SET inspections_json = (SELECT JSON_ARRAYAGG(JSON_OBJECT
     ))
                         FROM inspection i
                         WHERE i.plane_id = p.id);
+
+-- Faltaría añadir a cada columna not null
+-- Faltaría gestionar los posibles nulos, hay que inicializar las columnas a JSONARRAY vacío
+
